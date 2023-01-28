@@ -24,7 +24,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public String deleteTaskById(Long lessonId,Long id) {
-        return taskResource.deleteTaskById(lessonId,id);
+    public String deleteTaskById(Long id) {
+        return taskResource.deleteTaskById(id);
     }
 }

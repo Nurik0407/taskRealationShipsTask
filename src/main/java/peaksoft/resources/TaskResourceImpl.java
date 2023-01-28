@@ -76,17 +76,23 @@ public class TaskResourceImpl implements TaskResource, AutoCloseable {
     }
 
     @Override
-    public String deleteTaskById(Long lessonId, Long id) {
+    public String deleteTaskById(Long id) {
         try {
-            Task taskNull = new Task();
             EntityManager entityManager = entityManagerFactory.createEntityManager();
             entityManager.getTransaction().begin();
             Task task = entityManager.find(Task.class, id);
-            entityManager.detach(task);
-            Lesson lesson = entityManager.find(Lesson.class, lessonId);
-            List<Task> tasks = lesson.getTasks().stream().filter(s -> s!=task).toList();
-            lesson.setTasks(tasks);
-            entityManager.remove(task);
+            List<Lesson> lessons = entityManager.createQuery("SELECT l FROM Lesson l", Lesson.class).getResultList();
+           Lesson lesson = null;
+            for (Lesson lesson1 : lessons) {
+                for (Task lessonTask : lesson1.getTasks()) {
+                    if (lessonTask.getId().equals(task.getId())) {
+                        lesson = lesson1;
+                        System.out.println(lessonTask);
+                    }
+                }
+            }
+            lesson.getTasks().remove(task);
+           entityManager.remove(task);
             entityManager.getTransaction().commit();
             entityManager.close();
             return task.getName() + " successfully deleted...";

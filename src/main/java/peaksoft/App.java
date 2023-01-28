@@ -177,11 +177,9 @@ public class App {
                                 case 2 -> System.out.println(taskService.updateTask(scanId(), scanTask()));
                                 case 3 -> System.out.println(taskService.getAllTaskByLessonId(scanId()));
                                 case 4 -> {
-                                    System.out.println("Enter lesson id: ");
-                                    Long lessonId = new Scanner(System.in).nextLong();
                                     System.out.println("Enter task id: ");
                                     Long taskId = new Scanner(System.in).nextLong();
-                                    System.out.println(taskService.deleteTaskById(lessonId,taskId));
+                                    System.out.println(taskService.deleteTaskById(taskId));
                                 }
                                 case 7 -> trueOrFalse = false;
                             }
@@ -229,7 +227,6 @@ public class App {
     }
 
 
-
     static Task scanTask() {
         System.out.println("Enter name task: ");
         String name = new Scanner(System.in).nextLine();
@@ -252,6 +249,5 @@ public class App {
         }
         return null;
     }
-
 }
 

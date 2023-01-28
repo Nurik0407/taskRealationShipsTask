@@ -26,7 +26,7 @@ public class Lesson {
     private String videoLink;
     @ManyToOne(cascade = {MERGE, REFRESH, DETACH, PERSIST})
     private Course course;
-@OneToMany(cascade = ALL)
+@OneToMany(cascade = {DETACH,REMOVE},fetch = FetchType.EAGER)
     private List<Task> tasks = new ArrayList<>();
 
     public Lesson(String name, String videoLink) {
